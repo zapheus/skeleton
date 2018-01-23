@@ -73,6 +73,12 @@ Now open your web browser and go to [http://localhost:8000](http://localhost:800
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
+## Testing
+
+``` bash
+$ vendor/bin/phpunit
+```
+
 [ico-version]: https://img.shields.io/packagist/v/zapheus\skeleton.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/zapheus\skeleton/master.svg?style=flat-square
