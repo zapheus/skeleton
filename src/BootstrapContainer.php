@@ -73,7 +73,7 @@ class BootstrapContainer extends Container
 
         $providers = $config->get('app.providers', array());
 
-        foreach ((array) $providers as $provider) {
+        foreach ($providers as $provider) {
             $string = is_string($provider);
 
             $string && $provider = new $provider;
