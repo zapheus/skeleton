@@ -9,10 +9,7 @@ $root = str_replace($search, '', __DIR__);
 require (string) $root . 'vendor/autoload.php';
 
 // Starts the bootstrap container
-$container = new App\BootstrapContainer;
-
-// Loads the list of configuration files
-$container->config($root . 'app/config');
+$container = new App\Bootstrap($root);
 
 $zapheus = new Zapheus\Application($container);
 

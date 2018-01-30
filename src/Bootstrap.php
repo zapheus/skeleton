@@ -2,11 +2,13 @@
 
 namespace App;
 
-use App\Controllers\GreetController;
 use Zapheus\Application;
 use Zapheus\Container\Container;
+use Zapheus\Container\ReflectionContainer;
 use Zapheus\Provider\Configuration;
 use Zapheus\Provider\ConfigurationInterface;
+
+use App\Application\Controllers\GreetController;
 
 /**
  * Bootstrap Container
@@ -14,23 +16,33 @@ use Zapheus\Provider\ConfigurationInterface;
  * @package Zapheus
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
-class BootstrapContainer extends Container
+class Bootstrap extends Container
 {
+    /**
+     * Path of the configurations directory.
+     *
+     * @var string
+     */
+    protected $config = 'app/config';
+
     /**
      * Initializes the container instance.
      *
+     * @param string                                     $path
      * @param \Zapheus\Container\ContainerInterface|null $delegate
      */
-    public function __construct(ContainerInterface $delegate = null)
+    public function __construct($path, ContainerInterface $delegate = null)
     {
+        $this->configuration($path . $this->config);
+
         // NOTE: If you want to autowire your classes, you may want
         // to use the ReflectionContainer class but it might have an
         // effect regarding the performance of the application. Just
-        // uncomment lines 31 and 33 in order to use the instance.
+        // uncomment lines 33 and 35 in order to use the instance.
 
-        // $reflection = new ReflectionContainer;
+        $reflection = new ReflectionContainer;
 
-        // $delegate = $delegate === null ? $reflection : $delegate;
+        $delegate = $delegate === null ? $reflection : $delegate;
 
         parent::__construct($delegate);
 
@@ -39,26 +51,9 @@ class BootstrapContainer extends Container
 
         // NOTE: If you enabled the ReflectionContainer above, you can
         // now enable to define controllers without setting it manually.
-        // So you can comment line 43 if the said instance was enabled.
+        // So you can comment line 46 if the said instance was enabled.
 
-        $this->set(GreetController::class, new GreetController);
-    }
-
-    /**
-     * Loads the configuration files from a specified path.
-     *
-     * @param  string $path
-     * @return self
-     */
-    public function config($path)
-    {
-        $interface = ConfigurationInterface::class;
-
-        $config = new Configuration;
-
-        $config->load((string) $path, true);
-
-        return $this->set($interface, $config);
+        // $this->set(GreetController::class, new GreetController);
     }
 
     /**
@@ -73,7 +68,7 @@ class BootstrapContainer extends Container
 
         $providers = $config->get('app.providers', array());
 
-        foreach ($providers as $provider) {
+        foreach ((array) $providers as $provider) {
             $string = is_string($provider);
 
             $string && $provider = new $provider;
@@ -82,5 +77,22 @@ class BootstrapContainer extends Container
         }
 
         return $application;
+    }
+
+    /**
+     * Loads the configuration files from a specified path.
+     *
+     * @param  string $path
+     * @return self
+     */
+    protected function configuration($path)
+    {
+        $interface = ConfigurationInterface::class;
+
+        $config = new Configuration;
+
+        $config->load((string) $path, true);
+
+        return $this->set($interface, $config);
     }
 }

@@ -14,19 +14,19 @@ An application structure for [Zapheus](https://github.com/zapheus/zapheus) frame
 Via Composer
 
 ``` bash
-$ composer create-project zapheus\skeleton:dev-master "acme"
+$ composer create-project zapheus/skeleton:dev-master "acme"
 ```
 
 ## Getting Started
 
-### Adding dependencies using `ContainerInterface`
+### Add definitions to `Bootstrap` container
 
-**src/BootstrapContainer.php**
+**src/Bootstrap.php**
 
 ``` php
-use App\Controllers\TestController;
+use App\Controllers\GreetController;
 
-class BootstrapContainer extends Container
+class Bootstrap extends Container
 {
     // ...
 
@@ -34,12 +34,12 @@ class BootstrapContainer extends Container
     {
         // ...
 
-        $this->set(TestController::class, new TestController);
+        $this->set(GreetController::class, new GreetController);
     }
 }
 ```
 
-### Adding routes using `RouteCollection`
+### Add HTTP routes to `RouteCollection`
 
 **src/Application/RouteCollection.php**
 
@@ -79,17 +79,17 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 $ vendor/bin/phpunit
 ```
 
-[ico-version]: https://img.shields.io/packagist/v/zapheus\skeleton.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/zapheus/skeleton.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/zapheus\skeleton/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/zapheus\skeleton.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/zapheus\skeleton.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/zapheus\skeleton.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/zapheus/skeleton/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/zapheus/skeleton.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/zapheus/skeleton.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/zapheus/skeleton.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/zapheus\skeleton
-[link-travis]: https://travis-ci.org/zapheus\skeleton
-[link-scrutinizer]: https://scrutinizer-ci.com/g/zapheus\skeleton/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/zapheus\skeleton
-[link-downloads]: https://packagist.org/packages/zapheus\skeleton
+[link-packagist]: https://packagist.org/packages/zapheus/skeleton
+[link-travis]: https://travis-ci.org/zapheus/skeleton
+[link-scrutinizer]: https://scrutinizer-ci.com/g/zapheus/skeleton/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/zapheus/skeleton
+[link-downloads]: https://packagist.org/packages/zapheus/skeleton
 [link-author]: https://github.com/rougin
 [link-contributors]: ../../contributors

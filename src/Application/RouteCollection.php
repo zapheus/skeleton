@@ -17,10 +17,10 @@ class RouteCollection extends Router
      *
      * @var string
      */
-    protected $namespace = 'App\Controllers';
+    protected $namespace = 'App\Application\Controllers';
 
     /**
-     * Returns a listing of routes.
+     * Returns an array of route instances.
      *
      * @return \Zapheus\Routing\Route[]
      */

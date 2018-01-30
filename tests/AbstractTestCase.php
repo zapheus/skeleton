@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\Application\ApplicationProvider;
 use Zapheus\Http\Message\Request;
-use Zapheus\Http\MessageProvider;
 
 /**
  * Abstract Test Case
@@ -28,11 +26,9 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
     {
         $root = str_replace('tests', '', __DIR__);
 
-        $container = new BootstrapContainer;
+        $container = new \App\Bootstrap($root);
 
         $_SERVER = $this->server('GET', '/');
-
-        $container->config($root . 'app/config');
 
         $app = new \Zapheus\Application($container);
 
