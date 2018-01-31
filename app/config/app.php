@@ -62,15 +62,15 @@ return array(
          */
         'zapheus' => array(
             // Standalone Providers
-            Zapheus\Http\MessageProvider::class,
+            'Zapheus\Http\MessageProvider',
 
             // Application Providers
-            App\Zapheus\ZapheusProvider::class,
-            App\Example\ExampleProvider::class,
-            App\Zapheus\DispatcherProvider::class,
+            'App\Zapheus\ZapheusProvider',
+            'App\Example\ExampleProvider',
+            'App\Zapheus\DispatcherProvider',
 
             // Providers that requires configuration
-            Zapheus\Renderer\RendererProvider::class,
+            'Zapheus\Renderer\RendererProvider',
         ),
 
         /**

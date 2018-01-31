@@ -48,7 +48,7 @@ return array(
         'public' => array(
             'driver' => 'local',
             'root' => __DIR__ . '/../../storage/app/public',
-            'url' => getenv('APP_URL') . '/storage',
+            'url' => ((string) getenv('APP_URL')) . '/storage',
             'visibility' => 'public',
         ),
         's3' => array(

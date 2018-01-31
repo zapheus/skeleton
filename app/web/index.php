@@ -13,5 +13,5 @@ require (string) $root . 'vendor/autoload.php';
 // Starts the bootstrap container
 $bootstrap = new App\Bootstrap($root);
 
-// Bootstrap everthing to the application
-echo $bootstrap->initialize()->run();
+// Bootstrap all configurations then run the application
+echo $bootstrap->initialize()->run()->__toString();

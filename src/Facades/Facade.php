@@ -7,6 +7,8 @@ namespace App\Facades;
  *
  * @package App
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ *
+ * @method string accessor()
  */
 abstract class Facade
 {

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Container\Container as IlluminateContainer;
-use Illuminate\Support\Facades\Facade;
+// use Illuminate\Container\Container as IlluminateContainer;
+// use Illuminate\Support\Facades\Facade;
 use Zapheus\Application;
 use Zapheus\Bridge\Illuminate\Provider as IlluminateProvider;
 use Zapheus\Container\CompositeContainer;
@@ -12,7 +12,7 @@ use Zapheus\Container\ReflectionContainer;
 use Zapheus\Provider\Configuration;
 use Zapheus\Provider\FrameworkProvider;
 
-use App\Application\Controllers\GreetController;
+// use App\Application\Controllers\GreetController;
 
 /**
  * Bootstrap Container
@@ -61,14 +61,16 @@ class Bootstrap extends CompositeContainer
      */
     public function __construct($root)
     {
+        $this->root = $root;
+
         $this->writable = new WritableContainer;
 
-        $this->configuration($this->root = $root);
+        $this->configuration();
 
         // NOTE: If you want to autowire your classes, you may want
         // to use the ReflectionContainer class but it might have an
         // effect regarding the performance of the application. Just
-        // uncomment lines 70 in order to use the mentioned instance.
+        // uncomment lines 75 in order to use the mentioned instance.
 
         $this->add(new ReflectionContainer);
 
@@ -77,7 +79,7 @@ class Bootstrap extends CompositeContainer
 
         // NOTE: If you enabled the ReflectionContainer above, you can
         // now enable to define controllers without setting it manually.
-        // So you can comment line 79 if the said instance was enabled.
+        // So you can comment line 84 if the said instance was enabled.
 
         // $this->writable->set(GreetController::class, new GreetController);
     }
@@ -126,7 +128,7 @@ class Bootstrap extends CompositeContainer
     /**
      * Loads the configuration files from a specified path.
      *
-     * @return \Zapheus\Container\WritableContainer
+     * @return \Zapheus\Container\WritableInterface
      */
     protected function configuration()
     {
@@ -134,7 +136,7 @@ class Bootstrap extends CompositeContainer
 
         $config = new Configuration;
 
-        $config->load($this->root . $this->config, true);
+        $config->load($this->root . $this->config);
 
         return $this->writable->set($interface, $config);
     }
@@ -159,15 +161,15 @@ class Bootstrap extends CompositeContainer
             $application->add($provider);
         }
 
-        if (class_exists(self::ILLUMINATE_PROVIDER) === true) {
-            $laravel = $config->get('app.providers.laravel', array());
+        // if (class_exists(self::ILLUMINATE_PROVIDER) === true) {
+        //     $laravel = $config->get('app.providers.laravel', array());
 
-            $application->add(new IlluminateProvider($laravel));
+        //     $application->add(new IlluminateProvider($laravel));
 
-            $container = $application->get(self::ILLUMINATE_CONTAINER);
+        //     $container = $application->get(self::ILLUMINATE_CONTAINER);
 
-            Facade::setFacadeApplication($container);
-        }
+        //     Facade::setFacadeApplication($container);
+        // }
 
         $application->add(new FrameworkProvider($this));
 

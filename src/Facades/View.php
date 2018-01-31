@@ -9,6 +9,8 @@ use Zapheus\Renderer\RendererInterface;
  *
  * @package App
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ *
+ * @method string render(string $template, array $data)
  */
 class View extends Facade
 {
