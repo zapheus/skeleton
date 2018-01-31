@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Application\Controllers;
+namespace App\Zapheus;
+
+use App\Facades\View;
 
 /**
  * Greet Controller
@@ -17,7 +19,9 @@ class GreetController
      */
     public function greet($name = 'Stranger')
     {
-        return 'Greetings, ' . $name . '!';
+        $data = array('name' => (string) $name);
+
+        return View::make('greet', $data);
     }
 
     /**

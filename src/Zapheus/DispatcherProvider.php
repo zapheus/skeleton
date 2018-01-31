@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Zapheus;
 
 use Zapheus\Container\WritableInterface;
 use Zapheus\Provider\ProviderInterface;
@@ -8,13 +8,17 @@ use Zapheus\Routing\Dispatcher;
 use Zapheus\Routing\DispatcherInterface;
 
 /**
- * Application Provider
+ * Dispatcher Provider
  *
  * @package App
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
-class ApplicationProvider implements ProviderInterface
+class DispatcherProvider implements ProviderInterface
 {
+    const COMPOSITE = 'App\Zapheus\CompositeRouter';
+
+    const DISPATCHER = 'Zapheus\Routing\DispatcherInterface';
+
     /**
      * Registers the bindings in the container.
      *
@@ -23,10 +27,12 @@ class ApplicationProvider implements ProviderInterface
      */
     public function register(WritableInterface $container)
     {
-        $dispatcher = new Dispatcher(new RouteCollection);
+        $collection = $container->get(self::COMPOSITE);
 
-        $interface = DispatcherInterface::class;
+        $dispatcher = new Dispatcher($collection);
 
-        return $container->set($interface, $dispatcher);
+        $container->set(self::DISPATCHER, $dispatcher);
+
+        return $container;
     }
 }

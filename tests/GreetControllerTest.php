@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Controllers\GreetController;
-
 /**
  * Greet Controller Test
  *
@@ -16,6 +14,8 @@ class GreetControllerTest extends AbstractTestCase
      * Tests GreetController::greet.
      *
      * @return void
+     *
+     * @runInSeparateProcess
      */
     public function testGreetMethod()
     {
@@ -32,6 +32,8 @@ class GreetControllerTest extends AbstractTestCase
      * Tests GreetController::scream.
      *
      * @return void
+     *
+     * @runInSeparateProcess
      */
     public function testScreamMethod()
     {

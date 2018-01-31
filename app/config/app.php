@@ -5,7 +5,7 @@
  *
  * @var array
  */
-return [
+return array(
     /**
      * Name of the application.
      *
@@ -43,15 +43,41 @@ return [
     'timezone' => getenv('APP_TIMEZONE'),
 
     /**
+     * The directory name which contains the template files.
+     *
+     * @var string
+     */
+    'views' => array(__DIR__ . '/../views'),
+
+    /**
      * An array of providers to be added to the application.
      *
      * @var string[]
      */
-    'providers' => [
-        // Zapheus Providers
-        Zapheus\Http\MessageProvider::class,
+    'providers' => array(
+        /**
+         * Zapheus Providers
+         *
+         * @var string[]
+         */
+        'zapheus' => array(
+            // Standalone Providers
+            Zapheus\Http\MessageProvider::class,
 
-        // Application Providers
-        App\Application\ApplicationProvider::class,
-    ],
-];
+            // Application Providers
+            App\Zapheus\ZapheusProvider::class,
+            App\Example\ExampleProvider::class,
+            App\Zapheus\DispatcherProvider::class,
+
+            // Providers that requires configuration
+            Zapheus\Renderer\RendererProvider::class,
+        ),
+
+        /**
+         * Laravel Service Providers
+         *
+         * @var string[]
+         */
+        'laravel' => array(),
+    ),
+);

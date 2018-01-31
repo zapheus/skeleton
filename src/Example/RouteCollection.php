@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application;
+namespace App\Example;
 
 use Zapheus\Routing\Router;
 
@@ -13,11 +13,11 @@ use Zapheus\Routing\Router;
 class RouteCollection extends Router
 {
     /**
-     * Namespace applied to all controller routes.
+     * Namespace applied to all class-based routes.
      *
      * @var string
      */
-    protected $namespace = 'App\Application\Controllers';
+    protected $namespace = 'App\Example';
 
     /**
      * Returns an array of route instances.
@@ -26,13 +26,8 @@ class RouteCollection extends Router
      */
     public function routes()
     {
-        $this->get('/{name}', 'GreetController@greet');
+        $this->get('/test', 'TestController@greet');
 
-        $this->get('/', 'GreetController@greet');
-
-        $this->get('/scream', 'GreetController@scream');
-
-        // Always returns the array of Route instances.
         return $this->routes;
     }
 }

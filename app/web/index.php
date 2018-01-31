@@ -1,5 +1,7 @@
 <?php
 
+use Zapheus\Application;
+
 // Sets up the root directory to be used later
 $search = 'app' . DIRECTORY_SEPARATOR . 'web';
 
@@ -9,9 +11,7 @@ $root = str_replace($search, '', __DIR__);
 require (string) $root . 'vendor/autoload.php';
 
 // Starts the bootstrap container
-$container = new App\Bootstrap($root);
+$bootstrap = new App\Bootstrap($root);
 
-$zapheus = new Zapheus\Application($container);
-
-// Prepares the providers and run the application
-echo $container->providers($zapheus)->run();
+// Bootstrap everthing to the application
+echo $bootstrap->initialize()->run();

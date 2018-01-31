@@ -24,15 +24,13 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $root = str_replace('tests', '', __DIR__);
-
-        $container = new \App\Bootstrap($root);
-
         $_SERVER = $this->server('GET', '/');
 
-        $app = new \Zapheus\Application($container);
+        $root = str_replace('tests', '', __DIR__);
 
-        $this->app = $container->providers($app);
+        $bootstrap = new \App\Bootstrap($root);
+
+        $this->app = $bootstrap->initialize();
     }
 
     /**
