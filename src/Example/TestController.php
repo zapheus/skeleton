@@ -19,6 +19,6 @@ class TestController
      */
     public function greet()
     {
-        return View::make('fixture.test');
+        return View::render('fixture.test');
     }
 }

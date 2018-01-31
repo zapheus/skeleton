@@ -23,18 +23,4 @@ class View extends Facade
     {
         return 'Zapheus\Renderer\RendererInterface';
     }
-
-    /**
-     * Renders a file from a specified template.
-     *
-     * @param  string $template
-     * @param  array  $data
-     * @return string
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function make($template, $data = array())
-    {
-        return self::render($template, $data);
-    }
 }

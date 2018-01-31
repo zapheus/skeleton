@@ -21,7 +21,7 @@ class GreetController
     {
         $data = array('name' => (string) $name);
 
-        return View::make('greet', $data);
+        return View::render('greet', $data);
     }
 
     /**

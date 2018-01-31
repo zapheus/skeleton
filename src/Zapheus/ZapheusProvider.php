@@ -36,13 +36,15 @@ class ZapheusProvider implements ProviderInterface
      */
     public static function merge(WritableInterface $container, RouterInterface $router)
     {
-        if ($container->has(self::COMPOSITE)) {
-            $composite = $container->get(self::COMPOSITE);
+        $exists = $container->has(self::COMPOSITE);
 
-            $composite->merge($router);
-        } else {
-            $composite = (new CompositeRouter)->merge($router);
-        }
+        $default = new CompositeRouter;
+
+        $exists || $container->set(self::COMPOSITE, $default);
+
+        $composite = $container->get(self::COMPOSITE);
+
+        $composite->merge($router);
 
         return $container->set(self::COMPOSITE, $composite);
     }
