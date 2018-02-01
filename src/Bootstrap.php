@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Dotenv\Dotenv;
 use Zapheus\Application;
 use Zapheus\Container\CompositeContainer;
 use Zapheus\Container\Container;
@@ -18,13 +19,6 @@ use Zapheus\Provider\FrameworkProvider;
 class Bootstrap extends CompositeContainer
 {
     const CONFIG = 'Zapheus\Provider\ConfigurationInterface';
-
-    /**
-     * Static instance of the application container.
-     *
-     * @var \Zapheus\Container\ContainerInterface
-     */
-    protected static $container;
 
     /**
      * Path of the configurations directory.
@@ -48,24 +42,33 @@ class Bootstrap extends CompositeContainer
     protected $writable;
 
     /**
+     * Static instance of the application container.
+     *
+     * @var \Zapheus\Container\ContainerInterface
+     */
+    protected static $container;
+
+    /**
      * Initializes the container instance.
      *
      * NOTE: If you want to autowire dependencies of classes, you may need
      * to use the ReflectionContainer instance but it might have an effect
-     * regarding the performance of the application. Just uncomment line 72
+     * regarding the performance of the application. Just uncomment line 75
      * in order to use the mentioned instance.
      *
      * @param string $root
      */
     public function __construct($root)
     {
-        $this->root = $root;
-
         $this->writable = new Container;
 
-        $config = new Configuration;
+        $dotenv = new Dotenv($this->root = $root);
 
-        $config->load($this->root . $this->config);
+        $config = new Configuration(array());
+
+        $path = (string) $this->root . $this->config;
+
+        $dotenv->load() && $config->load($path);
 
         $this->writable->set(self::CONFIG, $config);
 
@@ -103,15 +106,15 @@ class Bootstrap extends CompositeContainer
     /**
      * Finds an entry of the container by its identifier and returns it.
      *
-     * @param  string $id
+     * @param  string|null $id
      * @return mixed
      *
      * @throws \Zapheus\Container\Exception\NotFoundException
      * @throws \Zapheus\Container\Exception\ContainerException
      */
-    public static function make($id)
+    public static function make($id = null)
     {
-        return self::$container->get($id);
+        return $id === null ? self::$container : self::$container->get($id);
     }
 
     /**
@@ -125,12 +128,5 @@ class Bootstrap extends CompositeContainer
      */
     protected function definitions()
     {
-        $greet = 'App\Zapheus\GreetController';
-
-        $this->writable->set($greet, new $greet);
-
-        $test = 'App\Example\TestController';
-
-        $this->writable->set($test, new $test);
     }
 }
