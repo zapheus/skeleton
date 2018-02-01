@@ -2,7 +2,6 @@
 
 namespace App\Zapheus;
 
-use Zapheus\Bridge\Illuminate\Provider;
 use Zapheus\Container\WritableInterface;
 use Zapheus\Provider\ProviderInterface;
 

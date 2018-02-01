@@ -68,6 +68,7 @@ return array(
             'App\Zapheus\ZapheusProvider',
             'App\Example\ExampleProvider',
             'App\Zapheus\DispatcherProvider',
+            'App\Zapheus\IlluminateProvider',
 
             // Providers that requires configuration
             'Zapheus\Renderer\RendererProvider',
