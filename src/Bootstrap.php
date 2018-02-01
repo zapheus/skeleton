@@ -2,17 +2,12 @@
 
 namespace App;
 
-// use Illuminate\Container\Container as IlluminateContainer;
-// use Illuminate\Support\Facades\Facade;
 use Zapheus\Application;
-use Zapheus\Bridge\Illuminate\Provider as IlluminateProvider;
 use Zapheus\Container\CompositeContainer;
-use Zapheus\Container\Container as WritableContainer;
+use Zapheus\Container\Container;
 use Zapheus\Container\ReflectionContainer;
 use Zapheus\Provider\Configuration;
 use Zapheus\Provider\FrameworkProvider;
-
-// use App\Application\Controllers\GreetController;
 
 /**
  * Bootstrap Container
@@ -22,9 +17,7 @@ use Zapheus\Provider\FrameworkProvider;
  */
 class Bootstrap extends CompositeContainer
 {
-    const ILLUMINATE_CONTAINER = 'Illuminate\Container\Container';
-
-    const ILLUMINATE_PROVIDER = 'Zapheus\Bridge\Illuminate\Provider';
+    const CONFIG = 'Zapheus\Provider\ConfigurationInterface';
 
     /**
      * Static instance of the application container.
@@ -57,58 +50,54 @@ class Bootstrap extends CompositeContainer
     /**
      * Initializes the container instance.
      *
+     * NOTE: If you want to autowire dependencies of classes, you may need
+     * to use the ReflectionContainer instance but it might have an effect
+     * regarding the performance of the application. Just uncomment line 72
+     * in order to use the mentioned instance.
+     *
      * @param string $root
      */
     public function __construct($root)
     {
         $this->root = $root;
 
-        $this->writable = new WritableContainer;
+        $this->writable = new Container;
 
-        $this->configuration();
+        $config = new Configuration;
 
-        // NOTE: If you want to autowire your classes, you may want
-        // to use the ReflectionContainer class but it might have an
-        // effect regarding the performance of the application. Just
-        // uncomment lines 75 in order to use the mentioned instance.
+        $config->load($this->root . $this->config);
+
+        $this->writable->set(self::CONFIG, $config);
 
         $this->add(new ReflectionContainer);
 
-        // Define your dependencies below using $this->writable->set() method.
-        // Documentation: $this->writable->set(string $id, mixed $concrete)
-
-        // NOTE: If you enabled the ReflectionContainer above, you can
-        // now enable to define controllers without setting it manually.
-        // So you can comment line 84 if the said instance was enabled.
-
-        // $this->writable->set(GreetController::class, new GreetController);
+        $this->definitions();
     }
 
     /**
-     * Returns the writable container.
+     * Prepares the providers and returns the application instance.
      *
-     * @return \Zapheus\Container\WritableInterface
-     */
-    public function container()
-    {
-        return $this->writable;
-    }
-
-    /**
-     * Prepares the providers and runs the application.
-     *
-     * @return \Zapheus\Application\ApplicationInterface
+     * @return \Zapheus\Application
      */
     public function initialize()
     {
-        // Loads the writable container.
-        $container = $this->container();
+        $application = new Application($this->writable);
 
-        // Sets up the application with the container
-        $app = new Application($container);
+        $config = $application->get(self::CONFIG);
 
-        // Loads all the available providers
-        return $this->providers($app);
+        $zapheus = $config->get('app.providers.zapheus');
+
+        foreach ((array) $zapheus as $provider) {
+            $string = is_string($provider);
+
+            $string && $provider = new $provider;
+
+            $application->add($provider);
+        }
+
+        $application->add(new FrameworkProvider($this));
+
+        return static::$container = $application;
     }
 
     /**
@@ -126,53 +115,22 @@ class Bootstrap extends CompositeContainer
     }
 
     /**
-     * Loads the configuration files from a specified path.
+     * Define your dependencies using the $this->writable->set() method.
+     * See line 72 of Zapheus\Container\Container for documentation.
      *
-     * @return \Zapheus\Container\WritableInterface
-     */
-    protected function configuration()
-    {
-        $interface = (string) FrameworkProvider::CONFIG;
-
-        $config = new Configuration;
-
-        $config->load($this->root . $this->config);
-
-        return $this->writable->set($interface, $config);
-    }
-
-    /**
-     * Sets the providers for the application.
+     * NOTE: If you enabled the ReflectionContainer in line 74, you can
+     * now enable to define string classses and instances automatically.
      *
-     * @param  \Zapheus\Application $application
-     * @return \Zapheus\Application
+     * @return void
      */
-    protected function providers(Application $application)
+    protected function definitions()
     {
-        $config = $application->get(Application::CONFIGURATION);
+        $greet = 'App\Zapheus\GreetController';
 
-        $zapheus = $config->get('app.providers.zapheus');
+        $this->writable->set($greet, new $greet);
 
-        foreach ((array) $zapheus as $provider) {
-            $string = is_string($provider);
+        $test = 'App\Example\TestController';
 
-            $string && $provider = new $provider;
-
-            $application->add($provider);
-        }
-
-        // if (class_exists(self::ILLUMINATE_PROVIDER) === true) {
-        //     $laravel = $config->get('app.providers.laravel', array());
-
-        //     $application->add(new IlluminateProvider($laravel));
-
-        //     $container = $application->get(self::ILLUMINATE_CONTAINER);
-
-        //     Facade::setFacadeApplication($container);
-        // }
-
-        $application->add(new FrameworkProvider($this));
-
-        return static::$container = $application;
+        $this->writable->set($test, new $test);
     }
 }

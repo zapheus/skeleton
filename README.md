@@ -24,24 +24,26 @@ $ composer create-project zapheus/skeleton:dev-master "acme"
 **src/Bootstrap.php**
 
 ``` php
-use App\Controllers\GreetController;
-
-class Bootstrap extends Container
+class Bootstrap extends CompositeContainer
 {
     // ...
 
-    public function __construct(ContainerInterface $delegate = null)
+    protected function definitions()
     {
-        // ...
+        $greet = 'App\Zapheus\GreetController';
 
-        $this->set(GreetController::class, new GreetController);
+        $this->writable->set($greet, new $greet);
+
+        $test = 'App\Example\TestController';
+
+        $this->writable->set($test, new $test);
     }
 }
 ```
 
 ### Add HTTP routes to `RouteCollection`
 
-**src/Application/RouteCollection.php**
+**src/Zapheus/RouteCollection.php**
 
 ``` php
 class RouteCollection extends Router
@@ -50,13 +52,10 @@ class RouteCollection extends Router
 
     public function routes()
     {
-        // ...
-
-        $this->get('/test', function () {
+        $this->get('/test', function ()
+        {
             return 'This is a sample route';
         });
-
-        // ...
     }
 }
 ```
