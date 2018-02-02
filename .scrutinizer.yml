@@ -7,7 +7,7 @@ build:
         override: [ php-scrutinizer-run ]
 
 filter:
-  excluded_paths: [ tests/* ]
+  excluded_paths: [ src/Facades/*, tests/* ]
 
 checks:
   php:
