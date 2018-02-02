@@ -14,6 +14,13 @@ use Zapheus\Routing\RouterInterface;
 class CompositeRouter extends Router
 {
     /**
+     * Namespace applied to all class-based routes.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Zapheus';
+
+    /**
      * Merges the new route instances.
      *
      * @param  \Zapheus\Routing\RouterInterface $router
@@ -26,5 +33,21 @@ class CompositeRouter extends Router
         $this->routes = array_merge($this->routes, $routes);
 
         return $this;
+    }
+
+    /**
+     * Returns an array of route instances.
+     *
+     * @return \Zapheus\Routing\Route[]
+     */
+    public function routes()
+    {
+        $this->get('/scream', 'GreetController@scream');
+
+        $this->get('/', 'GreetController@greet');
+
+        $this->get('/{name}', 'GreetController@greet');
+
+        return $this->routes;
     }
 }

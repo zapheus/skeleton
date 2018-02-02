@@ -14,8 +14,6 @@ use Zapheus\Routing\RouterInterface;
  */
 class ZapheusProvider implements ProviderInterface
 {
-    const COMPOSITE = 'App\Zapheus\CompositeRouter';
-
     /**
      * Registers the bindings in the container.
      *
@@ -24,7 +22,11 @@ class ZapheusProvider implements ProviderInterface
      */
     public function register(WritableInterface $container)
     {
-        return self::merge($container, new RouteCollection);
+        $composite = new CompositeRouter;
+
+        $container->set(get_class($composite), $composite);
+
+        return $container;
     }
 
     /**
@@ -36,16 +38,10 @@ class ZapheusProvider implements ProviderInterface
      */
     public static function merge(WritableInterface $container, RouterInterface $router)
     {
-        $exists = $container->has(self::COMPOSITE);
+        $composite = __NAMESPACE__ . '\CompositeRouter';
 
-        $default = new CompositeRouter;
+        $result = $container->get($composite)->merge($router);
 
-        $exists || $container->set(self::COMPOSITE, $default);
-
-        $composite = $container->get(self::COMPOSITE);
-
-        $composite->merge($router);
-
-        return $container->set(self::COMPOSITE, $composite);
+        return $container->set($composite, $result);
     }
 }

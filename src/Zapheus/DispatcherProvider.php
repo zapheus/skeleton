@@ -15,8 +15,6 @@ use Zapheus\Routing\DispatcherInterface;
  */
 class DispatcherProvider implements ProviderInterface
 {
-    const COMPOSITE = 'App\Zapheus\CompositeRouter';
-
     const DISPATCHER = 'Zapheus\Routing\DispatcherInterface';
 
     /**
@@ -27,9 +25,11 @@ class DispatcherProvider implements ProviderInterface
      */
     public function register(WritableInterface $container)
     {
-        $collection = $container->get(self::COMPOSITE);
+        $composite = __NAMESPACE__ . '\CompositeRouter';
 
-        $dispatcher = new Dispatcher($collection);
+        $composite = $container->get($composite);
+
+        $dispatcher = new Dispatcher($composite);
 
         $container->set(self::DISPATCHER, $dispatcher);
 
