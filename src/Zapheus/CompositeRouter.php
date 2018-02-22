@@ -46,7 +46,7 @@ class CompositeRouter extends Router
 
         $this->get('/', 'GreetController@greet');
 
-        $this->get('/{name}', 'GreetController@greet');
+        // $this->get('/{name}', 'GreetController@greet');
 
         return $this->routes;
     }

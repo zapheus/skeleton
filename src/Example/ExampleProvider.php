@@ -26,7 +26,7 @@ class ExampleProvider implements ProviderInterface
 
         $templates = __DIR__ . DIRECTORY_SEPARATOR . 'Templates';
 
-        $config['app.views.fixture'] = $templates;
+        $config->set('app.views.fixture', (string) $templates);
 
         $container->set(ProviderInterface::CONFIG, $config);
 

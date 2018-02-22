@@ -110,7 +110,6 @@ class Bootstrap extends CompositeContainer
      * @return mixed
      *
      * @throws \Zapheus\Container\Exception\NotFoundException
-     * @throws \Zapheus\Container\Exception\ContainerException
      */
     public static function make($id = null)
     {
@@ -119,9 +118,9 @@ class Bootstrap extends CompositeContainer
 
     /**
      * Define your dependencies using the $this->writable->set() method.
-     * See line 72 of Zapheus\Container\Container for documentation.
+     * See line 67 of Zapheus\Container\Container for documentation.
      *
-     * NOTE: If you enabled the ReflectionContainer in line 74, you can
+     * NOTE: If you enabled the ReflectionContainer in line 75, you can
      * now enable to define string classses and instances automatically.
      *
      * @return void

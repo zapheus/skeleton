@@ -41,12 +41,12 @@ class Bootstrap extends CompositeContainer
 }
 ```
 
-### Add HTTP routes to `RouteCollection`
+### Add HTTP routes to `CompositeRouter`
 
-**src/Zapheus/RouteCollection.php**
+**src/Zapheus/CompositeRouter.php**
 
 ``` php
-class RouteCollection extends Router
+class CompositeRouter extends Router
 {
     // ...
 
