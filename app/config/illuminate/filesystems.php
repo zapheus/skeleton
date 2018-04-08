@@ -43,19 +43,29 @@ return array(
     'disks' => array(
         'local' => array(
             'driver' => 'local',
+
             'root' => __DIR__ . '/../../storage/app',
         ),
+
         'public' => array(
             'driver' => 'local',
+
             'root' => __DIR__ . '/../../storage/app/public',
-            'url' => ((string) getenv('APP_URL')) . '/storage',
+
+            'url' => (string) getenv('APP_URL') . '/storage',
+
             'visibility' => 'public',
         ),
+
         's3' => array(
             'driver' => 's3',
+
             'key' => getenv('AWS_ACCESS_KEY_ID'),
+
             'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+
             'region' => getenv('AWS_DEFAULT_REGION'),
+
             'bucket' => getenv('AWS_BUCKET'),
         ),
     ),
