@@ -28,6 +28,12 @@ class RouteCollection extends Router
     {
         $this->get('/test', 'TestController@greet');
 
+        $this->get('/scream', 'GreetController@scream');
+
+        $this->get('/', 'GreetController@greet');
+
+        $this->get('/{name}', 'GreetController@greet');
+
         return $this->routes;
     }
 }

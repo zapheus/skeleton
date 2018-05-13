@@ -2,7 +2,6 @@
 
 namespace App\Example;
 
-use App\Zapheus\ZapheusProvider as Provider;
 use Zapheus\Container\WritableInterface;
 use Zapheus\Provider\ProviderInterface;
 
@@ -26,10 +25,12 @@ class ExampleProvider implements ProviderInterface
 
         $templates = __DIR__ . DIRECTORY_SEPARATOR . 'Templates';
 
-        $config->set('app.views.fixture', (string) $templates);
+        $config->set('app.views.sample', $templates);
 
         $container->set(ProviderInterface::CONFIG, $config);
 
-        return Provider::merge($container, new RouteCollection);
+        $router = new RouteCollection;
+
+        return $container->set(get_class($router), $router);
     }
 }

@@ -5,12 +5,12 @@ namespace App\Example;
 use Zapheus\Renderer\RendererInterface;
 
 /**
- * Test Controller
+ * Greet Controller
  *
  * @package App
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
-class TestController
+class GreetController
 {
     /**
      * @var \Zapheus\Renderer\RendererInterface
@@ -28,12 +28,22 @@ class TestController
     }
 
     /**
-     * Greets you with a "lorem ipsum" text.
+     * Greets a specified name.
      *
      * @return string
      */
-    public function greet()
+    public function greet($name = 'Stranger')
     {
-        return $this->renderer->render('sample.test');
+        return $this->renderer->render('sample.greet', compact('name'));
+    }
+
+    /**
+     * Shouts the specified name.
+     *
+     * @return string
+     */
+    public function scream()
+    {
+        return strtoupper($this->greet());
     }
 }
