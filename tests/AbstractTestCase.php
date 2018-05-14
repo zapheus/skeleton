@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Zapheus\BootstrapProvider;
+use App\Zapheus\SlytherinProvider;
 use Zapheus\Http\Message\Request;
 
 /**
@@ -28,9 +30,11 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
         $root = str_replace('tests', '', __DIR__);
 
-        $bootstrap = new \App\Bootstrap($root);
+        $zapheus = new \Zapheus\Application;
 
-        $this->app = $bootstrap->initialize();
+        $bootstrap = new BootstrapProvider($root);
+
+        $this->app = $zapheus->add($bootstrap);
     }
 
     /**
