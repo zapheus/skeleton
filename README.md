@@ -1,4 +1,4 @@
-# Application Skeleton
+# Skeleton
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -17,56 +17,167 @@ Via Composer
 $ composer create-project zapheus/skeleton:dev-master "acme"
 ```
 
-## Getting Started
+## Usage
 
-### Add definitions to `Bootstrap` container
+### Running the application
 
-**src/Bootstrap.php**
-
-``` php
-class Bootstrap extends CompositeContainer
-{
-    // ...
-
-    protected function definitions()
-    {
-        $greet = 'App\Zapheus\GreetController';
-
-        $this->writable->set($greet, new $greet);
-
-        $test = 'App\Example\TestController';
-
-        $this->writable->set($test, new $test);
-    }
-}
-```
-
-### Add HTTP routes to `CompositeRouter`
-
-**src/Zapheus/CompositeRouter.php**
-
-``` php
-class CompositeRouter extends Router
-{
-    // ...
-
-    public function routes()
-    {
-        $this->get('/test', function ()
-        {
-            return 'This is a sample route';
-        });
-    }
-}
-```
-
-### Running the application using PHP's built-in web server
+Use PHP's built-in web server (available in v5.4+)
 
 ``` bash
 $ php -S localhost:8000 -t app/web
 ```
 
 Now open your web browser and go to [http://localhost:8000](http://localhost:8000).
+
+### Adding Zapheus providers
+
+``` php
+// app/config/providers.php
+
+return array(
+    // ...
+
+    'zapheus' => array(
+        // ...
+
+        // Application Providers
+        'App\Acme\AcmeProvider',
+        'App\Acme\SampleProvider',
+
+        // ...
+    ),
+);
+```
+
+A Zapheus provider must be implemented in a `ProviderInterface`:
+
+``` php
+namespace Zapheus\Provider;
+
+use Zapheus\Container\WritableInterface;
+
+interface ProviderInterface
+{
+    /**
+     * @return \Zapheus\Container\ContainerInterface
+     */
+    public function register(WritableInterface $container);
+}
+```
+
+### Adding dependencies to `MappingsProvider`
+
+``` php
+// src/Zapheus/MappingsProvider.php
+
+class MappingsProvider implements ProviderInterface
+{
+    public function register(WritableInterface $container)
+    {
+        $test = 'App\Acme\DelegatesController';
+
+        return $container->set($test, new $test);
+    }
+}
+```
+
+`MappingsProvider` is only applicable for specified handling of dependencies because Zapheus will try to manage the dependencies based on instances found from the container by default. For complex dependencies, it is recommended to implement it into a `ProviderInterface` instead.
+
+### Adding HTTP routes to `DispatcherProvider`
+
+``` php
+// src/Acme/RouteCollection.php
+
+use Zapheus\Routing\Router;
+
+class RouteCollection extends Router
+{
+    /**
+     * Namespace applied to all class-based routes.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Acme';
+
+    /**
+     * Returns an array of route instances.
+     *
+     * @return \Zapheus\Routing\Route[]
+     */
+    public function routes()
+    {
+        $this->get('/delegates', 'DelegatesController@index');
+
+        return $this->routes;
+    }
+}
+```
+
+``` php
+// src/Zapheus/DispatcherProvider.php
+
+class DispatcherProvider implements ProviderInterface
+{
+    /**
+     * An array of Zapheus\Routing\RouterInterface instances.
+     *
+     * @var string[]
+     */
+    protected $routers = array('App\Acme\RouteCollection');
+    
+    // ..
+}
+```
+
+### Adding multi-directory template files
+
+``` php
+// src/Acme/AcmeProvider.php
+
+use Zapheus\Container\WritableInterface;
+use Zapheus\Provider\ProviderInterface;
+
+class AcmeProvider implements ProviderInterface
+{
+    /**
+     * Registers the bindings in the container.
+     *
+     * @param  \Zapheus\Container\WritableInterface $container
+     * @return \Zapheus\Container\ContainerInterface
+     */
+    public function register(WritableInterface $container)
+    {
+        // ...
+
+        $templates = __DIR__ . DIRECTORY_SEPARATOR . 'Templates';
+
+        // Add a dot notation after "app.views"
+        $config->set('app.views.acme', $templates);
+        
+        // ...
+    }
+}
+```
+
+``` php
+// src/Acme/DelegatesController
+
+class DelegatesController
+{
+    protected $renderer;
+
+    public function __construct(RendererInterface $renderer)
+    {
+        $this->renderer = $renderer;
+    }
+    
+    public function index()
+    {
+        // Use the "acme" prefix defined from AcmeProvider
+        return $this->renderer->render('acme.test');
+    }
+}
+```
 
 ## Change log
 
