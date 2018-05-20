@@ -3,24 +3,24 @@
 namespace App\Zapheus;
 
 /**
- * Illuminate Provider
+ * Symfony Provider
  *
  * @package App
  * @author  Rougin Royce Gutib <rougingutib@gmail.com>
  */
-class IlluminateProvider extends FrameworkProvider
+class SymfonyProvider extends FrameworkProvider
 {
     /**
      * Class name of the bridge provider.
      *
      * @var string
      */
-    protected $provider = 'Zapheus\Bridge\Illuminate\BridgeProvider';
+    protected $provider = 'Zapheus\Bridge\Symfony\BridgeProvider';
 
     /**
      * Configuration path for the providers.
      *
      * @var string
      */
-    protected $providers = 'providers.laravel';
+    protected $providers = 'providers.symfony';
 }
