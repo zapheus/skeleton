@@ -48,37 +48,4 @@ return array(
      * @var string
      */
     'views' => array(__DIR__ . '/../views'),
-
-    /**
-     * An array of providers to be added to the application.
-     *
-     * @var string[]
-     */
-    'providers' => array(
-        /**
-         * Zapheus Providers
-         *
-         * @var string[]
-         */
-        'zapheus' => array(
-            // Standalone Providers
-            'Zapheus\Http\MessageProvider',
-
-            // Application Providers
-            'App\Zapheus\ZapheusProvider',
-            'App\Example\ExampleProvider',
-            'App\Zapheus\DispatcherProvider',
-            'App\Zapheus\IlluminateProvider',
-
-            // Providers that requires configuration
-            'Zapheus\Renderer\RendererProvider',
-        ),
-
-        /**
-         * Laravel Service Providers
-         *
-         * @var string[]
-         */
-        'laravel' => array(),
-    ),
 );
