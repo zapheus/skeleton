@@ -14,7 +14,7 @@ require $root . 'vendor/autoload.php';
 $app = new Zapheus\Application;
 
 // Prepares the bootstrap provider object
-$bootstrap = new BootstrapProvider($root);
+$app->add(new BootstrapProvider($root));
 
-// Then runs the application
-echo $app->add($bootstrap)->run();
+// Then runs the Zapheus application
+echo (string) $app->run()->__toString();
