@@ -1,7 +1,7 @@
 # Skeleton
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]][link-license]
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
@@ -9,15 +9,15 @@
 
 An application structure for [Zapheus](https://github.com/zapheus/zapheus) framework.
 
-## Install
+## Installation
 
-Via Composer
+Install `Skeleton` via [Composer](https://getcomposer.org/):
 
 ``` bash
 $ composer create-project zapheus/skeleton:dev-master "acme"
 ```
 
-## Usage
+## Basic Usage
 
 ### Running the application
 
@@ -179,27 +179,32 @@ class DelegatesController
 }
 ```
 
-## Change log
+## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG][link-changelog] for more information what has changed recently.
 
 ## Testing
 
 ``` bash
-$ vendor/bin/phpunit
+$ composer test
 ```
 
-[ico-version]: https://img.shields.io/packagist/v/zapheus/skeleton.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/zapheus/skeleton/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/zapheus/skeleton.svg?style=flat-square
+## License
+
+The MIT License (MIT). Please see [LICENSE][link-license] for more information.
+
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/zapheus/skeleton.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/zapheus/skeleton.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/zapheus/skeleton.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/zapheus/skeleton/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/zapheus/skeleton.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/zapheus/skeleton
-[link-travis]: https://travis-ci.org/zapheus/skeleton
-[link-scrutinizer]: https://scrutinizer-ci.com/g/zapheus/skeleton/code-structure
+[link-changelog]: https://github.com/zapheus/skeleton/blob/master/CHANGELOG.md
 [link-code-quality]: https://scrutinizer-ci.com/g/zapheus/skeleton
+[link-contributors]: https://github.com/zapheus/skeleton/contributors
 [link-downloads]: https://packagist.org/packages/zapheus/skeleton
-[link-author]: https://github.com/rougin
-[link-contributors]: ../../contributors
+[link-license]: https://github.com/zapheus/skeleton/blob/master/LICENSE.md
+[link-packagist]: https://packagist.org/packages/zapheus/skeleton
+[link-scrutinizer]: https://scrutinizer-ci.com/g/zapheus/skeleton/code-structure
+[link-travis]: https://travis-ci.org/zapheus/skeleton
