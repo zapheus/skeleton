@@ -8,7 +8,7 @@ use Zapheus\Renderer\RendererInterface;
  * Test Controller
  *
  * @package App
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class TestController
 {
