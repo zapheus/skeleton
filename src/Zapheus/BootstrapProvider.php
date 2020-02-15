@@ -10,7 +10,7 @@ use Zapheus\Provider\ProviderInterface;
  * Bootstrap Provider
  *
  * @package App
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class BootstrapProvider implements ProviderInterface
 {
@@ -57,7 +57,8 @@ class BootstrapProvider implements ProviderInterface
 
         $providers = $config->get('providers.zapheus');
 
-        foreach ((array) $providers as $provider) {
+        foreach ((array) $providers as $provider)
+        {
             $string = is_string($provider) === true;
 
             $string === true && $provider = new $provider;
