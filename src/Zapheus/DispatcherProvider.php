@@ -12,7 +12,7 @@ use Zapheus\Routing\DispatcherInterface;
  * Dispatcher Provider
  *
  * @package App
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class DispatcherProvider implements ProviderInterface
 {
@@ -35,7 +35,8 @@ class DispatcherProvider implements ProviderInterface
     {
         $routes = array();
 
-        foreach ((array) $this->routers as $router) {
+        foreach ((array) $this->routers as $router)
+        {
             $item = $container->get((string) $router);
 
             $current = (array) $item->routes();
