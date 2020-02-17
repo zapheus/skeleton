@@ -9,7 +9,7 @@ use Zapheus\Provider\ProviderInterface;
  * Framework Provider
  *
  * @package App
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class FrameworkProvider implements ProviderInterface
 {
@@ -37,7 +37,8 @@ class FrameworkProvider implements ProviderInterface
     {
         $config = $container->get(ProviderInterface::CONFIG);
 
-        if (class_exists($this->provider) === true) {
+        if (class_exists($this->provider) === true)
+        {
             $providers = $config->get($this->providers);
 
             $provider = new $this->provider($providers);
