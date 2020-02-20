@@ -6,7 +6,7 @@ namespace App\Zapheus;
  * Silex Provider
  *
  * @package App
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class SilexProvider extends FrameworkProvider
 {
