@@ -10,7 +10,7 @@ use Zapheus\Http\Message\Request;
  * Abstract Test Case
  *
  * @package Zapheus
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
