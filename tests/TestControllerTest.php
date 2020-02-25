@@ -6,7 +6,7 @@ namespace App;
  * Test Controller Test
  *
  * @package Zapheus
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class TestControllerTest extends AbstractTestCase
 {
