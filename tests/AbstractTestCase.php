@@ -68,7 +68,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
         $server['REQUEST_URI'] = $uri;
 
-        $server['SERVER_NAME'] = 'rougin.github.io';
+        $server['SERVER_NAME'] = 'roug.in';
 
         return $server;
     }
